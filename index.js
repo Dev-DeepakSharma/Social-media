@@ -9,6 +9,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
+const helmet = require("helmet"); // ✅ added helmet
 
 dotenv.config({ path: "./.env" });
 
@@ -25,6 +26,17 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(morgan("common"));
 app.use(cookieParser());
+
+// ✅ Helmet CSP middleware to allow Google Fonts
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+    },
+  })
+);
 
 // ✅ Allow multiple frontend origins
 const allowedOrigins = [
