@@ -25,10 +25,23 @@ const app = express();
 app.use(express.json({ limit: "10mb" }));
 app.use(morgan("common"));
 app.use(cookieParser());
+
+// ✅ Allow multiple frontend origins
+const allowedOrigins = [
+  process.env.CLIENT_URL || "http://localhost:3000",
+  "https://your-frontend-domain.vercel.app", // replace with actual deployed frontend
+];
+
 app.use(
   cors({
     credentials: true,
-    origin: process.env.CLIENT_URL || "http://localhost:3000", // dynamic for prod
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
   })
 );
 
