@@ -41,8 +41,9 @@ app.use(
 // ✅ Allow multiple frontend origins
 const allowedOrigins = [
   process.env.CLIENT_URL || "http://localhost:3000",
-  "https://your-frontend-domain.vercel.app", // replace with actual deployed frontend
+  "https://social-media-frontend.vercel.app"
 ];
+
 
 app.use(
   cors({
