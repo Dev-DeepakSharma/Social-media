@@ -41,11 +41,10 @@ app.use("/user", userRouter);
 const frontendPath = path.join(__dirname, "../frontend/build");
 app.use(express.static(frontendPath));
 
-// Catch‑all route to serve index.html for SPA
-app.get("/*", (req, res) => {
+// ✅ Catch‑all route (Express 5 compatible)
+app.get(/.*/, (req, res) => {
   res.sendFile(path.resolve(frontendPath, "index.html"));
 });
-
 
 const PORT = process.env.PORT || 4000;
 
