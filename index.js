@@ -33,15 +33,18 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "https://fonts.googleapis.com"],
+      styleSrcElem: ["'self'", "https://fonts.googleapis.com"], // ✅ add this
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
     },
   })
 );
 
+
 // ✅ Allow multiple frontend origins
 const allowedOrigins = [
   process.env.CLIENT_URL || "http://localhost:3000",
-  "https://social-media-frontend.vercel.app"
+  "https://social-media-frontend.vercel.app",
+  "https://social-media-kappa-inky.vercel.app" // ✅ add this
 ];
 
 
